@@ -1,5 +1,6 @@
 const sql = require('mssql');
 const CC = require('./CoordConverter.js');
+const SqlUtils = require('./SqlUtils.js')
 
 const coordConverter =  new CC();
  
@@ -40,11 +41,10 @@ module.exports = class SqlUtils {
         FROM [Katmai].[dbo].[interventiMilano]
         WHERE FOGLIO = ${foglio}`
         //eseguo la query e aspetto il risultato nella callback
-        sqlRequest.query(q, (err, result) => {SqlUtils.sendCiVettReult(err,result,res)}); 
+        sqlRequest.query(q, (err, result) => {SqlUtils.sendCiVettResult(err,result,res)}); 
     }
 
-  static sendCiVettResult(err,result, res)
-  {
+  static sendCiVettResult(err,result, res) {
         if (err) console.log(err); // ... error checks
         res.send(result.recordset);  //Invio il risultato al Browser
   }
