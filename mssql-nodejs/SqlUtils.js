@@ -25,10 +25,10 @@ module.exports = class SqlUtils {
         let sqlRequest = new sql.Request();  //sqlRequest: oggetto che serve a eseguire le query
         let q = 'SELECT DISTINCT TOP (100) [GEOM].STAsText() FROM [Katmai].[dbo].[interventiMilano]';
         //eseguo la query e aspetto il risultato nella callback
-        sqlRequest.query(q, (err, result) => {SqlUtils.sendQueryResults(err,result,res)}); 
+        sqlRequest.query(q, (err, result) => {SqlUtils.sendQueryResults(err,result,req,res)}); 
     }
     
-    static sendQueryResults(err,result, res)
+    static sendQueryResults(err, result, req, res)
     {
         if (err) console.log(err); // ... error checks
         res.send(coordConverter.generateGeoJson(result.recordset));  //Invio il risultato al Browser
@@ -41,10 +41,10 @@ module.exports = class SqlUtils {
         FROM [Katmai].[dbo].[interventiMilano]
         WHERE FOGLIO = ${foglio}`
         //eseguo la query e aspetto il risultato nella callback
-        sqlRequest.query(q, (err, result) => {SqlUtils.sendCiVettResult(err,result,res)}); 
+        sqlRequest.query(q, (err, result) => {SqlUtils.sendCiVettResult(err,result,req,res)}); 
     }
 
-  static sendCiVettResult(err,result, res) {
+  static sendCiVettResult(err,result,req,res) {
         if (err) console.log(err); // ... error checks
         res.send(result.recordset);  //Invio il risultato al Browser
   }
