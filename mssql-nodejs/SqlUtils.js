@@ -21,7 +21,7 @@ module.exports = class SqlUtils {
     });
 }
 
-    static makeSqlRequest(res) {
+    static makeSqlRequest(req,res) {
         let sqlRequest = new sql.Request();  //sqlRequest: oggetto che serve a eseguire le query
         let q = 'SELECT DISTINCT TOP (100) [GEOM].STAsText() FROM [Katmai].[dbo].[interventiMilano]';
         //eseguo la query e aspetto il risultato nella callback
